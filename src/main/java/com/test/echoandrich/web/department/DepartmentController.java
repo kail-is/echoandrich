@@ -6,6 +6,7 @@ import com.test.echoandrich.web.department.out.DepartmentDetailsResponse;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.tags.Tag;
+import jakarta.validation.constraints.Positive;
 import lombok.AllArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -30,7 +31,7 @@ public class DepartmentController {
     public ResponseEntity<ApiResponse> getDepartments() {
         List<DepartmentDetailsResponse> departments = departmentService.getAllDepartments();
         SuccessResponse<List<DepartmentDetailsResponse>> successResponse
-                = SuccessResponse.of("200 조회 완료", departments);
+                = SuccessResponse.of("조회 완료", departments);
 
         return ResponseEntity.ok(successResponse);
     }
@@ -46,8 +47,10 @@ public class DepartmentController {
     @Parameter(name = "departmentId", description = "부서 ID")
     @Parameter(name = "percentage", description = "인상 비율(%)")
     @PostMapping("/salary")
-    public ResponseEntity<ApiResponse> updateSalary(@RequestParam Long departmentId, @RequestParam Double percentage) {
-
+    public ResponseEntity<ApiResponse> updateSalary(
+            @RequestParam @Positive(message = "부서 ID는 양수여야 합니다.") Long departmentId,
+            @RequestParam @Positive(message = "인상률은 양수여야 합니다.") Double percentage
+    ) {
         departmentService.updateSalary(departmentId, percentage);
         SuccessResponse<String> successResponse = SuccessResponse.of("급여 인상이 완료되었습니다.");
 

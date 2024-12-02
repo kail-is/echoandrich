@@ -5,7 +5,10 @@ import com.test.echoandrich.config.SuccessResponse;
 import com.test.echoandrich.web.api.out.DentistResponseDto;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
+import io.swagger.v3.oas.annotations.Parameters;
 import io.swagger.v3.oas.annotations.tags.Tag;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Positive;
 import lombok.AllArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -30,17 +33,20 @@ public class OpenApiController {
      */
 
     @Operation(summary = "치과 검색", description = "페이지 번호와 지역으로 치과를 검색합니다")
-    @Parameter(name = "pageNo", description = "페이지 번호")
-    @Parameter(name = "pageNum", description = "페이지당 결과 수")
-    @Parameter(name = "region", description = "검색할 지역 코드")
+    @Parameters({
+        @Parameter(name = "pageNo", description = "페이지 번호", required = true),
+        @Parameter(name = "pageNum", description = "페이지당 결과 수", required = true),
+        @Parameter(name = "region", description = "검색할 지역 코드", required = true)
+    })
     @GetMapping("/dentist/search")
-    public ResponseEntity<ApiResponse> getDentistList(@RequestParam String pageNo,
-                                                      @RequestParam String pageNum,
-                                                      @RequestParam DentistRegion region) {
-
+    public ResponseEntity<ApiResponse> getDentistList(
+            @RequestParam @Positive(message = "페이지 번호는 양수여야 합니다") String pageNo,
+            @RequestParam @Positive(message = "페이지 크기는 양수여야 합니다") String pageNum,
+            @RequestParam @NotNull(message = "지역 코드는 필수입니다") DentistRegion region
+    ) {
         List<DentistResponseDto> dto = openApiService.getDentistList(pageNo, pageNum, region);
 
-        SuccessResponse<List<DentistResponseDto>> res = SuccessResponse.of("200 조회 완료", dto);
+        SuccessResponse<List<DentistResponseDto>> res = SuccessResponse.of("조회 완료", dto);
 
         return ResponseEntity.ok(res);
     }

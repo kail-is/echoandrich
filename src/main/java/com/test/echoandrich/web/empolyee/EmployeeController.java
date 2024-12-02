@@ -9,6 +9,7 @@ import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
+import jakarta.validation.constraints.Positive;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -32,7 +33,8 @@ public class EmployeeController {
     @Operation(summary = "직원 조회", description = "직원 ID로 현재 정보를 조회합니다")
     @Parameter(name = "employeeId", description = "직원 ID")
     @GetMapping("/{employeeId}")
-    public ResponseEntity<ApiResponse> getEmployeeCurrentInfo(@PathVariable Long employeeId) {
+    public ResponseEntity<ApiResponse> getEmployeeCurrentInfo(
+            @PathVariable @Positive(message = "직원 ID는 양수여야 합니다.") Long employeeId) {
 
         EmployeeCurrentInfoDto employeeInfo = employeeService.getCurrentEmployeeInfo(employeeId);
 
@@ -51,7 +53,7 @@ public class EmployeeController {
     @Operation(summary = "직원 이력 조회", description = "직원의 업무 이력을 조회합니다")
     @GetMapping("/{employeeId}/history")
     public ResponseEntity<ApiResponse> getEmployeeJobHistory(
-            @PathVariable Long employeeId) {
+            @PathVariable @Positive(message = "직원 ID는 양수여야 합니다.") Long employeeId) {
 
         List<JobHistoryDto> jobHistories = employeeService.getEmployeeJobHistory(employeeId);
 
@@ -71,7 +73,7 @@ public class EmployeeController {
     @Operation(summary = "직원 정보 수정", description = "직원의 정보를 업데이트합니다")
     @PutMapping("/{employeeId}")
     public ResponseEntity<ApiResponse> updateEmployee(
-            @PathVariable Long employeeId,
+            @PathVariable @Positive(message = "직원 ID는 양수여야 합니다.") Long employeeId,
             @RequestBody @Valid EmployeeUpdateDto updateDto) {
 
         EmployeeCurrentInfoDto updatedEmployee = employeeService.updateEmployee(employeeId, updateDto);
