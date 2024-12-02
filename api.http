@@ -1,28 +1,35 @@
 ### 특정 직원의 현재 정보 조회
-GET http://localhost:8080/api/employees/1
+GET http://localhost:8080/employees/98909
 
 ### 특정 직원의 직무 이력 조회
-GET http://localhost:8080/api/employees/1/history
+GET http://localhost:8080/employees/101/history
 
 ### 직원 정보 업데이트
-PUT http://localhost:8080/api/employees/1
+PUT http://localhost:8080/employees/999999
 Content-Type: application/json
 
 {
-    "name": "Updated Name",
-    "email": "updated.email@company.com",
-    "phoneNumber": "010-1234-5678",
-    "salary": 50000
+  "firstName": "firstName",
+  "lastName": "lastName",
+  "email": "updated@email.com",
+  "phoneNumber": "010.1234.5678",
+  "hireDate": "2021-01-01",
+  "salary": 50000,
+  "departmentId": 10,
+  "jobId": "AD_PRES"
 }
 
 ### 부서 목록 조회
 GET http://localhost:8080/departments
 
 ### 부서 급여 인상
-POST http://localhost:8080/department/salary?departmentId=1&percentage=10
+POST http://localhost:8080/departments/salary?departmentId=999&percentage=10
+
+### 치과 목록 검색 (대전)
+GET http://localhost:8080/dentist/search?pageNo=1&pageNum=10&region=DJ
 
 ### 치과 목록 검색 (대구)
 GET http://localhost:8080/dentist/search?pageNo=1&pageNum=10&region=DG
 
 ### 치과 목록 검색 (경기)
-GET http://localhost:8080/dentist/search?pageNo=2&pageNum=10&region=KG
+GET http://localhost:8080/dentist/search?pageNo=1&pageNum=10&region=KG
