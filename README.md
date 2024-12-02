@@ -1,5 +1,6 @@
 
 - [테스트용 http 파일](api.http)
+- [테스트 Swagger](http://ec2-13-124-241-199.ap-northeast-2.compute.amazonaws.com:8080/swagger-ui/index.html)
 
 # API 명세서
 
