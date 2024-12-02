@@ -26,7 +26,7 @@ public class OpenApiService {
         return switch (dentistRegion) {
             case DG -> filterAndPaginateDentist(dgDentistApi.getDentistList("1", "1000", dgApiKey).getData(), pageNo, pageNum);
 //           // TODO KG text/html 반환 처리 필요
-            case KG -> mapToDto(kgDentistApi.getDentistList(pageNo, pageNum, kgApiKey, "json").getDentistryPrivateHospital().get(0).getRow(), dentistMapper::kgToDto);
+//            case KG -> mapToDto(kgDentistApi.getDentistList(pageNo, pageNum, kgApiKey, "json").getDentistryPrivateHospital().get(0).getRow(), dentistMapper::kgToDto);
             case DJ -> mapToDto(djDentistApi.getDentistList(pageNo, pageNum).getResponse().getBody().getItems(), dentistMapper::djToDto);
             default -> throw new IllegalArgumentException("Invalid region: " + dentistRegion);
         };
