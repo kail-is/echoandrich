@@ -3,8 +3,8 @@ package com.test.echoandrich.web.api;
 public enum DentistRegion {
 
     DG("대구"),
-    DJ("대전"),
-    KG("경기");
+    DJ("대전");
+//    KG("경기");
 
     private final String regionName;
 
