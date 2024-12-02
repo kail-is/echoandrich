@@ -5,6 +5,9 @@ import com.test.echoandrich.config.SuccessResponse;
 import com.test.echoandrich.web.empolyee.out.EmployeeCurrentInfoDto;
 import com.test.echoandrich.web.empolyee.out.EmployeeUpdateDto;
 import com.test.echoandrich.web.empolyee.out.JobHistoryDto;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.Parameter;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -13,10 +16,12 @@ import lombok.AllArgsConstructor;
 
 import java.util.List;
 
+@Tag(name = "Employee", description = "직원 관리")
 @AllArgsConstructor
 @RestController
 @RequestMapping("/employees")
 public class EmployeeController {
+
 
     /**
      * 특정 사원의 현재 정보를 조회합니다.
@@ -24,6 +29,8 @@ public class EmployeeController {
      * @param employeeId 사원의 ID
      * @return 사원의 현재 정보를 포함하는 ResponseEntity
      */
+    @Operation(summary = "직원 조회", description = "직원 ID로 현재 정보를 조회합니다")
+    @Parameter(name = "employeeId", description = "직원 ID")
     @GetMapping("/{employeeId}")
     public ResponseEntity<ApiResponse> getEmployeeCurrentInfo(@PathVariable Long employeeId) {
 
@@ -40,6 +47,8 @@ public class EmployeeController {
      * @param employeeId 사원의 ID
      * @return 사원의 이력 정보를 포함하는 ResponseEntity
      */
+
+    @Operation(summary = "직원 이력 조회", description = "직원의 업무 이력을 조회합니다")
     @GetMapping("/{employeeId}/history")
     public ResponseEntity<ApiResponse> getEmployeeJobHistory(
             @PathVariable Long employeeId) {
@@ -58,6 +67,8 @@ public class EmployeeController {
      * @param updateDto 업데이트할 사원 정보
      * @return 업데이트된 사원 정보를 포함하는 ResponseEntity
      */
+
+    @Operation(summary = "직원 정보 수정", description = "직원의 정보를 업데이트합니다")
     @PutMapping("/{employeeId}")
     public ResponseEntity<ApiResponse> updateEmployee(
             @PathVariable Long employeeId,
