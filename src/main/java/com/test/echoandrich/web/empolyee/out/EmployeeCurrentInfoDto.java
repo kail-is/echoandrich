@@ -2,7 +2,6 @@ package com.test.echoandrich.web.empolyee.out;
 
 import lombok.*;
 
-import java.math.BigDecimal;
 import java.time.LocalDate;
 
 @Getter
@@ -16,6 +15,8 @@ public class EmployeeCurrentInfoDto {
     private String phoneNumber;
     private LocalDate hireDate;
     private String salary;
+    private String commissionPct;
+    private String managerName;
     private String departmentName;
     private String jobTitle;
 }

@@ -6,7 +6,6 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import java.time.LocalDate;
-import java.util.Date;
 
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
@@ -68,6 +67,22 @@ public class Employee {
 
     public static Employee of(Long employeeId, String firstName, String lastName, String email, String phoneNumber, LocalDate hireDate, Job job, Double salary, Double commissionPct, Employee manager, Department department) {
         return new Employee(employeeId, firstName, lastName, email, phoneNumber, hireDate, job, salary, commissionPct, manager, department);
+    }
+
+    public void update(String firstName, String lastName, String email,
+                       String phoneNumber, LocalDate hireDate, Job job,
+                       Double salary, Double commissionPct,
+                       Employee manager, Department department) {
+        if (firstName != null) this.firstName = firstName;
+        if (lastName != null) this.lastName = lastName;
+        if (email != null) this.email = email;
+        if (phoneNumber != null) this.phoneNumber = phoneNumber;
+        if (hireDate != null) this.hireDate = hireDate;
+        if (job != null) this.job = job;
+        if (salary != null) this.salary = salary;
+        if (commissionPct != null) this.commissionPct = commissionPct;
+        if (manager != null) this.manager = manager;
+        if (department != null) this.department = department;
     }
 
     public void updateSalary(Double salary) {
